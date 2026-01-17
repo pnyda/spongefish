@@ -141,6 +141,7 @@ pub mod codecs;
 /// domain separator
 mod domain_separator;
 /// Prover's internal state and transcript generation.
+#[cfg(feature = "getrandom")]
 mod prover;
 /// SAFE API.
 mod sho;
@@ -157,12 +158,14 @@ pub mod traits;
 pub use domain_separator::DomainSeparator;
 pub use duplex_sponge::{legacy::DigestBridge, DuplexSpongeInterface, Unit};
 pub use errors::{DomainSeparatorMismatch, ProofError, ProofResult};
+#[cfg(feature = "getrandom")]
 pub use prover::ProverState;
 pub use sho::HashStateWithInstructions;
 pub use traits::*;
 pub use verifier::VerifierState;
 
 /// Default random number generator used ([`rand::rngs::OsRng`]).
+#[cfg(feature = "getrandom")]
 pub type DefaultRng = rand::rngs::OsRng;
 
 /// Default hash function used ([`keccak::Keccak`]).

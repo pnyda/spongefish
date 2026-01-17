@@ -6,9 +6,13 @@ use rand::{CryptoRng, RngCore};
 use super::{CommonFieldToUnit, CommonGroupToUnit, FieldToUnitSerialize, GroupToUnitSerialize};
 use crate::{
     BytesToUnitDeserialize, BytesToUnitSerialize, CommonUnitToBytes, DomainSeparatorMismatch,
-    DuplexSpongeInterface, ProofResult, ProverState, Unit, UnitTranscript, VerifierState,
+    DuplexSpongeInterface, ProofResult, Unit, UnitTranscript, VerifierState,
 };
 
+#[cfg(feature = "getrandom")]
+use crate::ProverState;
+
+#[cfg(feature = "getrandom")]
 impl<F: Field, H: DuplexSpongeInterface, R: RngCore + CryptoRng> FieldToUnitSerialize<F>
     for ProverState<H, u8, R>
 {
@@ -19,6 +23,7 @@ impl<F: Field, H: DuplexSpongeInterface, R: RngCore + CryptoRng> FieldToUnitSeri
     }
 }
 
+#[cfg(feature = "getrandom")]
 impl<
         C: FpConfig<N>,
         H: DuplexSpongeInterface<Fp<C, N>>,
@@ -35,6 +40,7 @@ impl<
     }
 }
 
+#[cfg(feature = "getrandom")]
 impl<G, H, R> GroupToUnitSerialize<G> for ProverState<H, u8, R>
 where
     G: CurveGroup,
@@ -49,6 +55,7 @@ where
     }
 }
 
+#[cfg(feature = "getrandom")]
 impl<G, H, R, C: FpConfig<N>, C2: FpConfig<N>, const N: usize> GroupToUnitSerialize<G>
     for ProverState<H, Fp<C, N>, R>
 where
@@ -66,6 +73,7 @@ where
     }
 }
 
+#[cfg(feature = "getrandom")]
 impl<H, R, C, const N: usize> BytesToUnitSerialize for ProverState<H, Fp<C, N>, R>
 where
     H: DuplexSpongeInterface<Fp<C, N>>,

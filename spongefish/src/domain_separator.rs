@@ -214,6 +214,7 @@ impl<H: DuplexSpongeInterface<U>, U: Unit> DomainSeparator<H, U> {
 
     /// Create an [`crate::ProverState`] instance from the domain separator.
     #[must_use]
+    #[cfg(feature = "getrandom")]
     pub fn to_prover_state(&self) -> crate::ProverState<H, U, crate::DefaultRng> {
         self.into()
     }

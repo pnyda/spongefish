@@ -15,7 +15,7 @@ workspace = true
 [dependencies]
 zerocopy = { workspace = true }
 zeroize = { workspace = true, features = ["zeroize_derive"] }
-rand = { workspace = true, features = ["getrandom"] }
+rand = { workspace = true }
 digest = { workspace = true }
 # used as default hasher for the prover
 keccak = { workspace = true }
@@ -33,6 +33,7 @@ default = []
 arkworks-algebra = ["dep:ark-ff", "dep:ark-ec", "dep:ark-serialize"]
 zkcrypto-group = ["dep:group"]
 asm = ["keccak/asm", "keccak/simd"]
+getrandom = ["rand/default"]
 
 [dev-dependencies]
 ark-std = { workspace = true }

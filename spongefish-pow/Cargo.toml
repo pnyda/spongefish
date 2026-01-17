@@ -22,3 +22,4 @@ rand = { workspace = true }
 [features]
 default = ["parallel"]
 parallel = ["dep:rayon"]
+getrandom = ["rand/default"]

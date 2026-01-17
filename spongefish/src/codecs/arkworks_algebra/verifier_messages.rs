@@ -8,8 +8,11 @@ use rand::{CryptoRng, RngCore};
 use super::{CommonFieldToUnit, CommonGroupToUnit, UnitToField};
 use crate::{
     codecs::bytes_uniform_modp, CommonUnitToBytes, DomainSeparatorMismatch, DuplexSpongeInterface,
-    ProofError, ProofResult, ProverState, Unit, UnitToBytes, UnitTranscript, VerifierState,
+    ProofError, ProofResult, Unit, UnitToBytes, UnitTranscript, VerifierState,
 };
+
+#[cfg(feature = "getrandom")]
+use crate::ProverState;
 
 // Implementation of basic traits for bridging arkworks and spongefish
 
@@ -105,6 +108,7 @@ where
     }
 }
 
+#[cfg(feature = "getrandom")]
 impl<H, C, R, const N: usize> UnitToField<Fp<C, N>> for ProverState<H, Fp<C, N>, R>
 where
     C: FpConfig<N>,
@@ -119,6 +123,7 @@ where
 
 // Field <-> Field interactions:
 
+#[cfg(feature = "getrandom")]
 impl<F, H, R, C, const N: usize> CommonFieldToUnit<F> for ProverState<H, Fp<C, N>, R>
 where
     F: Field<BasePrimeField = Fp<C, N>>,
@@ -175,6 +180,7 @@ where
     }
 }
 
+#[cfg(feature = "getrandom")]
 impl<H, R, C, const N: usize, G> CommonGroupToUnit<G> for ProverState<H, Fp<C, N>, R>
 where
     C: FpConfig<N>,
@@ -225,6 +231,7 @@ where
     }
 }
 
+#[cfg(feature = "getrandom")]
 impl<H, R, C, const N: usize> CommonUnitToBytes for ProverState<H, Fp<C, N>, R>
 where
     C: FpConfig<N>,
@@ -239,6 +246,7 @@ where
     }
 }
 
+#[cfg(feature = "getrandom")]
 impl<H, R, C, const N: usize> UnitToBytes for ProverState<H, Fp<C, N>, R>
 where
     C: FpConfig<N>,

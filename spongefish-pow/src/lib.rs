@@ -3,8 +3,11 @@ pub mod keccak;
 
 use spongefish::{
     ByteDomainSeparator, BytesToUnitDeserialize, BytesToUnitSerialize, DuplexSpongeInterface,
-    ProofError, ProofResult, ProverState, Unit, UnitToBytes, VerifierState,
+    ProofError, ProofResult, Unit, UnitToBytes, VerifierState,
 };
+
+#[cfg(feature = "getrandom")]
+use crate::ProverState;
 
 /// [`spongefish::DomainSeparator`] for proof-of-work challenges.
 pub trait PoWDomainSeparator {
@@ -37,6 +40,7 @@ pub trait PoWChallenge {
     fn challenge_pow<S: PowStrategy>(&mut self, bits: f64) -> ProofResult<()>;
 }
 
+#[cfg(feature = "getrandom")]
 impl<H, U, R> PoWChallenge for ProverState<H, U, R>
 where
     U: Unit,

@@ -133,8 +133,11 @@ mod tests;
 
 pub use crate::{
     duplex_sponge::Unit, traits::*, DomainSeparator, DuplexSpongeInterface,
-    HashStateWithInstructions, ProofError, ProofResult, ProverState, VerifierState,
+    HashStateWithInstructions, ProofError, ProofResult, VerifierState,
 };
+
+#[cfg(feature = "getrandom")]
+use crate::ProverState;
 
 super::traits::field_traits!(ark_ff::Field);
 super::traits::group_traits!(ark_ec::CurveGroup, Scalar: ark_ff::PrimeField);
